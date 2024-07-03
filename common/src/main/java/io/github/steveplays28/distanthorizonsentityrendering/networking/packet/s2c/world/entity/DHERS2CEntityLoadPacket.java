@@ -13,18 +13,21 @@ public class DHERS2CEntityLoadPacket implements DHERPacket {
 
 	private final int entityId;
 	private final @NotNull Vector3f entityPosition;
-	private final float entityBoundingBoxAverageSideLength;
+	private final @NotNull Vector3f entityBoundingBoxMin;
+	private final @NotNull Vector3f entityBoundingBoxMax;
 
-	public DHERS2CEntityLoadPacket(int entityId, @NotNull Vector3f entityPosition, float entityBoundingBoxAverageSideLength) {
+	public DHERS2CEntityLoadPacket(int entityId, @NotNull Vector3f entityPosition, @NotNull Vector3f entityBoundingBoxMin, @NotNull Vector3f entityBoundingBoxMax) {
 		this.entityId = entityId;
 		this.entityPosition = entityPosition;
-		this.entityBoundingBoxAverageSideLength = entityBoundingBoxAverageSideLength;
+		this.entityBoundingBoxMin = entityBoundingBoxMin;
+		this.entityBoundingBoxMax = entityBoundingBoxMax;
 	}
 
 	public DHERS2CEntityLoadPacket(@NotNull PacketByteBuf buf) {
 		this.entityId = buf.readInt();
 		this.entityPosition = buf.readVector3f();
-		this.entityBoundingBoxAverageSideLength = buf.readFloat();
+		this.entityBoundingBoxMin = buf.readVector3f();
+		this.entityBoundingBoxMax = buf.readVector3f();
 	}
 
 	public static @NotNull Identifier getId() {
@@ -36,7 +39,8 @@ public class DHERS2CEntityLoadPacket implements DHERPacket {
 		var buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeInt(entityId);
 		buf.writeVector3f(entityPosition);
-		buf.writeFloat(entityBoundingBoxAverageSideLength);
+		buf.writeVector3f(entityBoundingBoxMin);
+		buf.writeVector3f(entityBoundingBoxMax);
 		return buf;
 	}
 
@@ -48,7 +52,11 @@ public class DHERS2CEntityLoadPacket implements DHERPacket {
 		return entityPosition;
 	}
 
-	public float getEntityBoundingBoxAverageSideLength() {
-		return entityBoundingBoxAverageSideLength;
+	public @NotNull Vector3f getEntityBoundingBoxMin() {
+		return entityBoundingBoxMin;
+	}
+
+	public @NotNull Vector3f getEntityBoundingBoxMax() {
+		return entityBoundingBoxMax;
 	}
 }

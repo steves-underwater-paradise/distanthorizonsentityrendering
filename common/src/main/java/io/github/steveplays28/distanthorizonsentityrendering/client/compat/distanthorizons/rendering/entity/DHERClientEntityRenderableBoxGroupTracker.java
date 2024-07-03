@@ -34,7 +34,7 @@ public class DHERClientEntityRenderableBoxGroupTracker {
 			var entityLoadPacket = new DHERS2CEntityLoadPacket(buf);
 			startTrackingEntity(
 					entityLoadPacket.getEntityId(), entityLoadPacket.getEntityPosition(),
-					entityLoadPacket.getEntityBoundingBoxAverageSideLength()
+					entityLoadPacket.getEntityBoundingBoxMin(), entityLoadPacket.getEntityBoundingBoxMax()
 			);
 		});
 		NetworkManager.registerReceiver(
@@ -52,7 +52,24 @@ public class DHERClientEntityRenderableBoxGroupTracker {
 			return;
 		}
 
-//		startTrackingEntity(entity.getId(), entity.getPos().toVector3f(), (float) entity.getBoundingBox().getAverageSideLength());
+		@NotNull final var entityPosition = entity.getPos().toVector3f();
+		final var entityPositionX = entityPosition.x();
+		final var entityPositionY = entityPosition.y();
+		final var entityPositionZ = entityPosition.z();
+		@NotNull final var entityBoundingBox = entity.getBoundingBox();
+//		startTrackingEntity(
+//				entity.getId(), entity.getPos().toVector3f(),
+//				new Vector3f(
+//						(float) entityBoundingBox.minX - entityPositionX,
+//						(float) entityBoundingBox.minY - entityPositionY,
+//						(float) entityBoundingBox.minZ - entityPositionZ
+//				),
+//				new Vector3f(
+//						(float) entityBoundingBox.maxX - entityPositionX,
+//						(float) entityBoundingBox.maxY - entityPositionY,
+//						(float) entityBoundingBox.maxZ - entityPositionZ
+//				)
+//		);
 	}
 
 	private static void onClientWorldEntityUnload(@NotNull ClientWorld clientWorld, @NotNull Entity entity) {
@@ -71,16 +88,21 @@ public class DHERClientEntityRenderableBoxGroupTracker {
 //		updateTrackingEntityPosition(entity.getId(), entity.getPos().toVector3f());
 	}
 
-	private static void startTrackingEntity(int entityId, @NotNull Vector3f entityPosition, float entityBoundingBoxAverageSideLength) {
-		@NotNull var renderableBoxGroup = DhApi.Delayed.renderRegister.createForSingleBox(
-				new DhApiRenderableBox(new DhApiVec3f(), entityBoundingBoxAverageSideLength, Color.CYAN));
+	private static void startTrackingEntity(int entityId, @NotNull Vector3f entityPosition, @NotNull Vector3f entityBoundingBoxMin, @NotNull Vector3f entityBoundingBoxMax) {
+		@NotNull final var renderableBoxGroup = DhApi.Delayed.renderRegister.createForSingleBox(
+				new DhApiRenderableBox(
+						new DhApiVec3f(entityBoundingBoxMin.x(), entityBoundingBoxMin.y(), entityBoundingBoxMin.z()),
+						new DhApiVec3f(entityBoundingBoxMax.x(), entityBoundingBoxMax.y(), entityBoundingBoxMax.z()),
+						Color.CYAN
+				)
+		);
 		renderableBoxGroup.setOriginBlockPos(new DhApiVec3f(entityPosition.x(), entityPosition.y(), entityPosition.z()));
 		RENDERABLE_BOX_GROUPS.put(entityId, renderableBoxGroup);
 		DhApi.Delayed.renderRegister.add(renderableBoxGroup);
 	}
 
 	private static void stopTrackingEntity(int entityId) {
-		@Nullable var renderableBoxGroup = RENDERABLE_BOX_GROUPS.get(entityId);
+		@Nullable final var renderableBoxGroup = RENDERABLE_BOX_GROUPS.get(entityId);
 		if (renderableBoxGroup == null) {
 			return;
 		}
@@ -91,7 +113,7 @@ public class DHERClientEntityRenderableBoxGroupTracker {
 	}
 
 	private static void updateTrackingEntityPosition(int entityId, @NotNull Vector3f entityPosition) {
-		@Nullable var renderableBoxGroup = RENDERABLE_BOX_GROUPS.get(entityId);
+		@Nullable final var renderableBoxGroup = RENDERABLE_BOX_GROUPS.get(entityId);
 		if (renderableBoxGroup == null) {
 			return;
 		}

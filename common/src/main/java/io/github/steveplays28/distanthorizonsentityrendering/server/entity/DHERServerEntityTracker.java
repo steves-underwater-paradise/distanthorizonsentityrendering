@@ -8,6 +8,7 @@ import io.github.steveplays28.distanthorizonsentityrendering.networking.packet.s
 import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 public class DHERServerEntityTracker {
 	static {
@@ -17,11 +18,25 @@ public class DHERServerEntityTracker {
 	}
 
 	private static void onEntityLoad(@NotNull ServerWorld serverWorld, @NotNull Entity entity) {
+		@NotNull final var entityPosition = entity.getPos().toVector3f();
+		final var entityPositionX = entityPosition.x();
+		final var entityPositionY = entityPosition.y();
+		final var entityPositionZ = entityPosition.z();
+		@NotNull final var entityBoundingBox = entity.getBoundingBox();
 		NetworkManager.sendToPlayers(
 				serverWorld.getPlayers(), DHERS2CEntityLoadPacket.getId(),
 				new DHERS2CEntityLoadPacket(
 						entity.getId(), entity.getPos().toVector3f(),
-						(float) entity.getBoundingBox().getAverageSideLength()
+						new Vector3f(
+								(float) entityBoundingBox.minX - entityPositionX,
+								(float) entityBoundingBox.minY - entityPositionY,
+								(float) entityBoundingBox.minZ - entityPositionZ
+						),
+						new Vector3f(
+								(float) entityBoundingBox.maxX - entityPositionX,
+								(float) entityBoundingBox.maxY - entityPositionY,
+								(float) entityBoundingBox.maxZ - entityPositionZ
+						)
 				).writeBuf()
 		);
 	}
