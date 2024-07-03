@@ -12,12 +12,14 @@ public class DHERS2CEntityLoadPacket implements DHERPacket {
 	private static final @NotNull Identifier id = new Identifier(DistantHorizonsEntityRendering.MOD_NAMESPACE, "entity_load_packet");
 
 	private final int entityId;
+	private final @NotNull Identifier entityTextureId;
 	private final @NotNull Vector3f entityPosition;
 	private final @NotNull Vector3f entityBoundingBoxMin;
 	private final @NotNull Vector3f entityBoundingBoxMax;
 
-	public DHERS2CEntityLoadPacket(int entityId, @NotNull Vector3f entityPosition, @NotNull Vector3f entityBoundingBoxMin, @NotNull Vector3f entityBoundingBoxMax) {
+	public DHERS2CEntityLoadPacket(int entityId, @NotNull Identifier entityTextureId, @NotNull Vector3f entityPosition, @NotNull Vector3f entityBoundingBoxMin, @NotNull Vector3f entityBoundingBoxMax) {
 		this.entityId = entityId;
+		this.entityTextureId = entityTextureId;
 		this.entityPosition = entityPosition;
 		this.entityBoundingBoxMin = entityBoundingBoxMin;
 		this.entityBoundingBoxMax = entityBoundingBoxMax;
@@ -25,6 +27,7 @@ public class DHERS2CEntityLoadPacket implements DHERPacket {
 
 	public DHERS2CEntityLoadPacket(@NotNull PacketByteBuf buf) {
 		this.entityId = buf.readInt();
+		this.entityTextureId = buf.readIdentifier();
 		this.entityPosition = buf.readVector3f();
 		this.entityBoundingBoxMin = buf.readVector3f();
 		this.entityBoundingBoxMax = buf.readVector3f();
@@ -38,6 +41,7 @@ public class DHERS2CEntityLoadPacket implements DHERPacket {
 	public @NotNull PacketByteBuf writeBuf() {
 		var buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeInt(entityId);
+		buf.writeIdentifier(entityTextureId);
 		buf.writeVector3f(entityPosition);
 		buf.writeVector3f(entityBoundingBoxMin);
 		buf.writeVector3f(entityBoundingBoxMax);
@@ -46,6 +50,10 @@ public class DHERS2CEntityLoadPacket implements DHERPacket {
 
 	public int getEntityId() {
 		return entityId;
+	}
+
+	public @NotNull Identifier getEntityTextureId() {
+		return entityTextureId;
 	}
 
 	public @NotNull Vector3f getEntityPosition() {

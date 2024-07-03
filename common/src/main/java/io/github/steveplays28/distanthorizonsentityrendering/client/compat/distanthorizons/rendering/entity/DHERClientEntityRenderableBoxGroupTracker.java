@@ -5,6 +5,7 @@ import com.seibel.distanthorizons.api.interfaces.render.IDhApiRenderableBoxGroup
 import com.seibel.distanthorizons.api.objects.math.DhApiVec3f;
 import com.seibel.distanthorizons.api.objects.render.DhApiRenderableBox;
 import dev.architectury.networking.NetworkManager;
+import io.github.steveplays28.distanthorizonsentityrendering.client.entity.color.EntityAverageColorCache;
 import io.github.steveplays28.distanthorizonsentityrendering.client.event.world.entity.DHERClientWorldEntityEvent;
 import io.github.steveplays28.distanthorizonsentityrendering.client.util.entity.ClientEntityUtil;
 import io.github.steveplays28.distanthorizonsentityrendering.networking.packet.s2c.world.entity.DHERS2CEntityLoadPacket;
@@ -12,6 +13,7 @@ import io.github.steveplays28.distanthorizonsentityrendering.networking.packet.s
 import io.github.steveplays28.distanthorizonsentityrendering.networking.packet.s2c.world.entity.DHERS2CEntityUnloadPacket;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -33,7 +35,7 @@ public class DHERClientEntityRenderableBoxGroupTracker {
 		NetworkManager.registerReceiver(NetworkManager.Side.S2C, DHERS2CEntityLoadPacket.getId(), (buf, context) -> {
 			var entityLoadPacket = new DHERS2CEntityLoadPacket(buf);
 			startTrackingEntity(
-					entityLoadPacket.getEntityId(), entityLoadPacket.getEntityPosition(),
+					entityLoadPacket.getEntityId(), entityLoadPacket.getEntityTextureId(), entityLoadPacket.getEntityPosition(),
 					entityLoadPacket.getEntityBoundingBoxMin(), entityLoadPacket.getEntityBoundingBoxMax()
 			);
 		});
@@ -88,12 +90,17 @@ public class DHERClientEntityRenderableBoxGroupTracker {
 //		updateTrackingEntityPosition(entity.getId(), entity.getPos().toVector3f());
 	}
 
-	private static void startTrackingEntity(int entityId, @NotNull Vector3f entityPosition, @NotNull Vector3f entityBoundingBoxMin, @NotNull Vector3f entityBoundingBoxMax) {
+	private static void startTrackingEntity(int entityId, @NotNull Identifier entityTextureIdentifier, @NotNull Vector3f entityPosition, @NotNull Vector3f entityBoundingBoxMin, @NotNull Vector3f entityBoundingBoxMax) {
+		@Nullable var averageMobTextureColor = EntityAverageColorCache.ENTITY_AVERAGE_COLORS.get(entityTextureIdentifier);
+		if (averageMobTextureColor == null) {
+			averageMobTextureColor = Color.BLACK;
+		}
+
 		@NotNull final var renderableBoxGroup = DhApi.Delayed.renderRegister.createForSingleBox(
 				new DhApiRenderableBox(
 						new DhApiVec3f(entityBoundingBoxMin.x(), entityBoundingBoxMin.y(), entityBoundingBoxMin.z()),
 						new DhApiVec3f(entityBoundingBoxMax.x(), entityBoundingBoxMax.y(), entityBoundingBoxMax.z()),
-						Color.CYAN
+						averageMobTextureColor
 				)
 		);
 		renderableBoxGroup.setOriginBlockPos(new DhApiVec3f(entityPosition.x(), entityPosition.y(), entityPosition.z()));
