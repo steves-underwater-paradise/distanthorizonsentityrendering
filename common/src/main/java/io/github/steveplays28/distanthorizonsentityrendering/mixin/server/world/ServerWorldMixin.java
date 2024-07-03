@@ -1,11 +1,11 @@
-package io.github.steveplays28.distanthorizonsentityrendering.mixin.client.world;
+package io.github.steveplays28.distanthorizonsentityrendering.mixin.server.world;
 
-import io.github.steveplays28.distanthorizonsentityrendering.client.event.world.entity.DHERClientWorldEntityEvent;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import io.github.steveplays28.distanthorizonsentityrendering.server.event.world.entity.DHERServerWorldEntityEvent;
+import net.minecraft.entity.Entity;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.world.MutableWorldProperties;
 import net.minecraft.world.World;
@@ -18,15 +18,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-
 import java.util.function.Supplier;
 
-@Environment(EnvType.CLIENT)
-@Mixin(ClientWorld.class)
-abstract class ClientWorldMixin extends World {
-	protected ClientWorldMixin(MutableWorldProperties properties, RegistryKey<World> registryRef, DynamicRegistryManager registryManager, RegistryEntry<DimensionType> dimensionEntry, Supplier<Profiler> profiler, boolean isClient, boolean debugWorld, long biomeAccess, int maxChainedNeighborUpdates) {
+@Mixin(ServerWorld.class)
+public abstract class ServerWorldMixin extends World {
+	protected ServerWorldMixin(MutableWorldProperties properties, RegistryKey<World> registryRef, DynamicRegistryManager registryManager, RegistryEntry<DimensionType> dimensionEntry, Supplier<Profiler> profiler, boolean isClient, boolean debugWorld, long biomeAccess, int maxChainedNeighborUpdates) {
 		super(
 				properties, registryRef, registryManager, dimensionEntry, profiler, isClient, debugWorld, biomeAccess,
 				maxChainedNeighborUpdates
@@ -41,15 +37,14 @@ abstract class ClientWorldMixin extends World {
 	 */
 	@Inject(method = "tickEntity", at = @At(value = "HEAD"))
 	private void distanthorizonsentityrendering$invokeEntityTickEvent(@NotNull Entity entity, @NotNull CallbackInfo ci) {
-		DHERClientWorldEntityEvent.ENTITY_TICK.invoker().onTick((ClientWorld) (Object) this, entity);
+		DHERServerWorldEntityEvent.ENTITY_TICK.invoker().onTick((ServerWorld) (Object) this, entity);
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Mixin(targets = "net/minecraft/client/world/ClientWorld$ClientEntityHandler")
-	abstract static class ClientWorldEntityHandlerMixin {
+	@Mixin(targets = "net/minecraft/server/world/ServerWorld$ServerEntityHandler")
+	public static abstract class ServerEntityHandlerMixin {
 		@Shadow
 		@Final
-		ClientWorld field_27735;
+		ServerWorld field_26936;
 
 		/**
 		 * Called before vanilla has started tracking the entity.
@@ -57,9 +52,9 @@ abstract class ClientWorldMixin extends World {
 		 * @param entity The {@link Entity} that will be tracked.
 		 * @param ci     The {@link CallbackInfo} for this {@link Inject}.
 		 */
-		@Inject(method = "startTracking(Lnet/minecraft/entity/Entity;)V", at = @At("TAIL"))
+		@Inject(method = "startTracking(Lnet/minecraft/entity/Entity;)V", at = @At(value = "HEAD"))
 		private void distanthorizonsentityrendering$invokeEntityLoadEvent(@NotNull Entity entity, @NotNull CallbackInfo ci) {
-			DHERClientWorldEntityEvent.ENTITY_LOAD.invoker().onLoad(this.field_27735, entity);
+			DHERServerWorldEntityEvent.ENTITY_LOAD.invoker().onLoad(this.field_26936, entity);
 		}
 
 		/**
@@ -70,7 +65,7 @@ abstract class ClientWorldMixin extends World {
 		 */
 		@Inject(method = "stopTracking(Lnet/minecraft/entity/Entity;)V", at = @At("HEAD"))
 		private void distanthorizonsentityrendering$invokeEntityUnloadEvent(@NotNull Entity entity, @NotNull CallbackInfo ci) {
-			DHERClientWorldEntityEvent.ENTITY_UNLOAD.invoker().onUnload(this.field_27735, entity);
+			DHERServerWorldEntityEvent.ENTITY_UNLOAD.invoker().onUnload(this.field_26936, entity);
 		}
 	}
 }
