@@ -1,8 +1,6 @@
 package io.github.steveplays28.distanthorizonsentityrendering;
 
-import com.seibel.distanthorizons.api.methods.events.DhApiEventRegister;
-import com.seibel.distanthorizons.api.methods.events.abstractEvents.DhApiAfterDhInitEvent;
-import io.github.steveplays28.distanthorizonsentityrendering.compat.distanthorizons.event.DHERAfterDhInitEventHandler;
+import io.github.steveplays28.distanthorizonsentityrendering.client.compat.distanthorizons.rendering.entity.DHERClientEntityRenderableBoxGroupTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +12,7 @@ public class DistantHorizonsEntityRendering {
 	public static void initialize() {
 		LOGGER.info("Loading {}.", MOD_NAME);
 
-		DhApiEventRegister.on(DhApiAfterDhInitEvent.class, new DHERAfterDhInitEventHandler());
+		// TODO: Move into a client initializer
+		DHERClientEntityRenderableBoxGroupTracker.initialize();
 	}
 }

@@ -6,6 +6,8 @@
   "mixins": [
   ],
   "client": [
+    "client.world.ClientWorldMixin",
+    "client.world.ClientWorldMixin$ClientWorldEntityHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
