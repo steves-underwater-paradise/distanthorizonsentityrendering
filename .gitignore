@@ -116,3 +116,6 @@ run/
 
 # Ignore environment variables/secrets
 .env
+
+# Avoid ignoring library files
+!/libraries/*.jar
