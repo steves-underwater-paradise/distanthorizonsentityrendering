@@ -4,7 +4,6 @@
 plugins {
     id "architectury-plugin" version "${architectury_plugin_version}"
     id "dev.architectury.loom" version "${architectury_loom_version}" apply false
-    id "io.github.pacifistmc.forgix" version "${forgix_plugin_version}"
 }
 
 architectury {
@@ -47,7 +46,7 @@ allprojects {
             url = "https://maven.neoforged.net/releases/"
         }
         flatDir {
-            dir rootProject.file("/libraries/")
+            dir rootProject.file("libraries/")
         }
     }
 
