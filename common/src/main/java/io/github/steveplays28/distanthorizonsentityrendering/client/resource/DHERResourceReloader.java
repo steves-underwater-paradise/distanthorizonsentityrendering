@@ -1,7 +1,7 @@
 package io.github.steveplays28.distanthorizonsentityrendering.client.resource;
 
 import io.github.steveplays28.distanthorizonsentityrendering.DistantHorizonsEntityRendering;
-import io.github.steveplays28.distanthorizonsentityrendering.client.entity.color.EntityAverageColorCache;
+import io.github.steveplays28.distanthorizonsentityrendering.client.entity.color.EntityAverageColorRegistry;
 import io.github.steveplays28.distanthorizonsentityrendering.client.util.image.BufferedImageUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,7 +25,7 @@ public class DHERResourceReloader implements ResourceReloader {
 	 * Asynchronously process and load resource-based data.
 	 * The code must be thread-safe and not modify game state!
 	 *
-	 * @param synchronizer    The {@link Synchronizer} which may be used for this stage.
+	 * @param synchronizer    The {@link Synchronizer} which should be used for this stage.
 	 * @param resourceManager The {@link ResourceManager} used during reloading.
 	 * @param prepareProfiler The {@link Profiler} which may be used for this stage.
 	 * @param applyProfiler   The {@link Profiler} which may be used for this stage.
@@ -36,28 +36,35 @@ public class DHERResourceReloader implements ResourceReloader {
 	@Override
 	public @NotNull CompletableFuture<Void> reload(@NotNull Synchronizer synchronizer, @NotNull ResourceManager resourceManager, @NotNull Profiler prepareProfiler, @NotNull Profiler applyProfiler, @NotNull Executor prepareExecutor, @NotNull Executor applyExecutor) {
 		return CompletableFuture.supplyAsync(() -> {
-			// TODO: Move into EntityAverageColorCache#register using a client-side resource reload event
-			EntityAverageColorCache.ENTITY_AVERAGE_COLORS.clear();
+			// TODO: Move into EntityAverageColorRegistry#register using a client-side resource reload event
+			EntityAverageColorRegistry.ENTITY_AVERAGE_COLOR_REGISTRY.clear();
 
-			@NotNull final var mobTextures = resourceManager.findResources(
+			@NotNull final var entityTextures = resourceManager.findResources(
 					ENTITY_TEXTURES_FOLDER_NAME, identifier -> identifier.toString().endsWith(PNG_FILE_SUFFIX));
-			for (@NotNull final var mobTexturePath : mobTextures.keySet()) {
-				@NotNull final var mobTexturePathSplit = mobTexturePath.getPath().replace(PNG_FILE_SUFFIX, "").split("/");
-				@NotNull final var mobIdentifier = new Identifier(
-						mobTexturePath.getNamespace(), mobTexturePathSplit[mobTexturePathSplit.length - 2]
+			for (@NotNull final var entityTexturePath : entityTextures.keySet()) {
+				@NotNull final var entityTexturePathSplit = entityTexturePath.getPath().replace(PNG_FILE_SUFFIX, "").split("/");
+				String entityName;
+				if (entityTexturePathSplit.length > 3) {
+					entityName = entityTexturePathSplit[entityTexturePathSplit.length - 2];
+				} else {
+					entityName = entityTexturePathSplit[entityTexturePathSplit.length - 1];
+				}
+
+				@NotNull final var entityIdentifier = new Identifier(
+						entityTexturePath.getNamespace(), entityName
 				);
-				if (EntityAverageColorCache.ENTITY_AVERAGE_COLORS.containsKey(mobIdentifier)) {
+				if (EntityAverageColorRegistry.ENTITY_AVERAGE_COLOR_REGISTRY.containsKey(entityIdentifier)) {
 					continue;
 				}
 
 				try {
-					EntityAverageColorCache.ENTITY_AVERAGE_COLORS.put(
-							mobIdentifier,
-							BufferedImageUtil.getAverageColor(ImageIO.read(mobTextures.get(mobTexturePath).getInputStream()))
+					EntityAverageColorRegistry.ENTITY_AVERAGE_COLOR_REGISTRY.put(
+							entityIdentifier,
+							BufferedImageUtil.getAverageColor(ImageIO.read(entityTextures.get(entityTexturePath).getInputStream()))
 					);
 				} catch (IOException e) {
 					DistantHorizonsEntityRendering.LOGGER.error(
-							"Exception thrown while trying to load mob texture ({}):\n{}", mobIdentifier, e);
+							"Exception thrown while trying to load mob texture ({}):\n{}", entityIdentifier, e);
 				}
 			}
 

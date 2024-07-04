@@ -5,7 +5,7 @@ import com.seibel.distanthorizons.api.interfaces.render.IDhApiRenderableBoxGroup
 import com.seibel.distanthorizons.api.objects.math.DhApiVec3f;
 import com.seibel.distanthorizons.api.objects.render.DhApiRenderableBox;
 import dev.architectury.networking.NetworkManager;
-import io.github.steveplays28.distanthorizonsentityrendering.client.entity.color.EntityAverageColorCache;
+import io.github.steveplays28.distanthorizonsentityrendering.client.entity.color.EntityAverageColorRegistry;
 import io.github.steveplays28.distanthorizonsentityrendering.client.event.world.entity.DHERClientWorldEntityEvent;
 import io.github.steveplays28.distanthorizonsentityrendering.client.util.entity.ClientEntityUtil;
 import io.github.steveplays28.distanthorizonsentityrendering.networking.packet.s2c.world.entity.DHERS2CEntityLoadPacket;
@@ -91,7 +91,7 @@ public class DHERClientEntityRenderableBoxGroupTracker {
 	}
 
 	private static void startTrackingEntity(int entityId, @NotNull Identifier entityTextureIdentifier, @NotNull Vector3f entityPosition, @NotNull Vector3f entityBoundingBoxMin, @NotNull Vector3f entityBoundingBoxMax) {
-		@Nullable var averageMobTextureColor = EntityAverageColorCache.ENTITY_AVERAGE_COLORS.get(entityTextureIdentifier);
+		@Nullable var averageMobTextureColor = EntityAverageColorRegistry.ENTITY_AVERAGE_COLOR_REGISTRY.get(entityTextureIdentifier);
 		if (averageMobTextureColor == null) {
 			averageMobTextureColor = Color.BLACK;
 		}
