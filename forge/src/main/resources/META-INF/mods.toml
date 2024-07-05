@@ -13,6 +13,7 @@ ${mod_description}
 '''
 logoFile = "assets/${mod_namespace}/icon.png"
 displayURL = "https://github.com/steves-underwater-paradise/${mod_id}"
+acceptableRemoteVersions = "${major_version}.x.x"
 
 [mc-publish]
 loaders = ["forge", "neoforge"]
@@ -32,3 +33,10 @@ mandatory = true
 versionRange = ">=${forge_version}"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "distanthorizons"
+mandatory = true
+versionRange = "2.1.x"
+ordering = "NONE"
+side = "CLIENT"

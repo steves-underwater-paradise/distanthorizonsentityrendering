@@ -45,7 +45,7 @@
     "fabricloader": ">=${fabric_loader_version}",
     "minecraft": "${supported_minecraft_version}"
   },
-  "suggests": {
-    "c2me": "*"
+  "recommends": {
+    "distanthorizons": "2.1.x"
   }
 }
