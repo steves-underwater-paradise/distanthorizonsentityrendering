@@ -11,6 +11,8 @@ import io.github.steveplays28.distanthorizonsentityrendering.client.util.entity.
 import io.github.steveplays28.distanthorizonsentityrendering.networking.packet.s2c.world.entity.DHERS2CEntityLoadPacket;
 import io.github.steveplays28.distanthorizonsentityrendering.networking.packet.s2c.world.entity.DHERS2CEntityTickPacket;
 import io.github.steveplays28.distanthorizonsentityrendering.networking.packet.s2c.world.entity.DHERS2CEntityUnloadPacket;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
@@ -22,6 +24,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@Environment(EnvType.CLIENT)
 public class DHERClientEntityRenderableBoxGroupTracker {
 	/**
 	 * Stores {@link Entity} IDs->{@link IDhApiRenderableBoxGroup}s.
@@ -96,7 +99,7 @@ public class DHERClientEntityRenderableBoxGroupTracker {
 			averageMobTextureColor = Color.BLACK;
 		}
 
-		@NotNull final var renderableBoxGroup = DhApi.Delayed.renderRegister.createForSingleBox(
+		@NotNull final var renderableBoxGroup = DhApi.Delayed.customRenderObjectFactory.createForSingleBox(
 				new DhApiRenderableBox(
 						new DhApiVec3f(entityBoundingBoxMin.x(), entityBoundingBoxMin.y(), entityBoundingBoxMin.z()),
 						new DhApiVec3f(entityBoundingBoxMax.x(), entityBoundingBoxMax.y(), entityBoundingBoxMax.z()),
@@ -105,7 +108,13 @@ public class DHERClientEntityRenderableBoxGroupTracker {
 		);
 		renderableBoxGroup.setOriginBlockPos(new DhApiVec3f(entityPosition.x(), entityPosition.y(), entityPosition.z()));
 		RENDERABLE_BOX_GROUPS.put(entityId, renderableBoxGroup);
-		DhApi.Delayed.renderRegister.add(renderableBoxGroup);
+
+		@Nullable final var renderRegister = DhApi.Delayed.worldProxy.getSinglePlayerLevel().getRenderRegister();
+		if (renderRegister == null) {
+			return;
+		}
+
+		renderRegister.add(renderableBoxGroup);
 	}
 
 	private static void stopTrackingEntity(int entityId) {
@@ -114,8 +123,12 @@ public class DHERClientEntityRenderableBoxGroupTracker {
 			return;
 		}
 
-		// TODO: Fix a crash in DH's renderer when removing a renderable box group during an upload
-//		DhApi.Delayed.renderRegister.remove(renderableBoxGroup.getId());
+		@Nullable final var renderRegister = DhApi.Delayed.worldProxy.getSinglePlayerLevel().getRenderRegister();
+		if (renderRegister == null) {
+			return;
+		}
+
+		renderRegister.remove(renderableBoxGroup.getId());
 		RENDERABLE_BOX_GROUPS.remove(entityId);
 	}
 
