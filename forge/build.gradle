@@ -55,7 +55,7 @@ processResources {
     inputs.property "version", "${project.version}-forge"
 
     from(project(":common").sourceSets["main"].resources) {
-        include("**")
+        include("assets", "data", "resourcepacks")
     }
 
     filesMatching("META-INF/mods.toml") {

@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 
 import static io.github.steveplays28.distanthorizonsentityrendering.DistantHorizonsEntityRendering.MOD_ID;
 import static io.github.steveplays28.distanthorizonsentityrendering.DistantHorizonsEntityRendering.MOD_NAME;
-import static io.github.steveplays28.distanthorizonsentityrendering.client.DistantHorizonsEntityRenderingClient.BUILT_IN_RESOURCE_PACK_NAME;
+import static io.github.steveplays28.distanthorizonsentityrendering.client.DistantHorizonsEntityRenderingClient.BUILT_IN_RESOURCE_PACK_NAMESPACE;
 
 public class DistantHorizonsEntityRenderingClientFabric implements ClientModInitializer {
 	@Override
@@ -24,7 +24,7 @@ public class DistantHorizonsEntityRenderingClientFabric implements ClientModInit
 
 		// Register a built-in default resource pack
 		ResourceManagerHelper.registerBuiltinResourcePack(
-				new Identifier(MOD_ID, BUILT_IN_RESOURCE_PACK_NAME), modContainer.get(), ResourcePackActivationType.DEFAULT_ENABLED);
+				new Identifier(MOD_ID, BUILT_IN_RESOURCE_PACK_NAMESPACE), modContainer.get(), ResourcePackActivationType.DEFAULT_ENABLED);
 		DistantHorizonsEntityRenderingClient.initialize();
 	}
 }

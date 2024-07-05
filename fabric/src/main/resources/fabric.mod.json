@@ -9,8 +9,8 @@
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/${mod_id}",
-    "sources": "https://github.com/Steveplays28/${mod_id}",
-    "issues": "https://github.com/Steveplays28/${mod_id}/issues"
+    "sources": "https://github.com/steves-underwater-paradise/${mod_id}",
+    "issues": "https://github.com/steves-underwater-paradise/${mod_id}/issues"
   },
   "license": "${mod_license}",
   "icon": "assets/${mod_namespace}/icon.png",

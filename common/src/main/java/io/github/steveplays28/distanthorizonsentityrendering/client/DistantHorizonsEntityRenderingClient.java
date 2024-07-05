@@ -7,7 +7,7 @@ import net.minecraft.resource.ResourceType;
 import org.jetbrains.annotations.NotNull;
 
 public class DistantHorizonsEntityRenderingClient {
-	public static final @NotNull String BUILT_IN_RESOURCE_PACK_NAME = "default";
+	public static final @NotNull String BUILT_IN_RESOURCE_PACK_NAMESPACE = "default";
 
 	public static void initialize() {
 		ReloadListenerRegistry.register(ResourceType.CLIENT_RESOURCES, new DHERResourceReloader());
