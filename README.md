@@ -1,20 +1,24 @@
-![Noisium icon](docs/assets/icon/icon_128x128.png)
+![Distant Horizons: Entity Rendering icon](docs/assets/icon/icon_128x128.png)
 
 # Distant Horizons: Entity Rendering
 
-// TODO: Add description
+Minecraft mod that renders entities in Distant Horizons' LODs.
 
 ## Dependencies
 
 ### Required
 
 - [Distant Horizons](https://modrinth.com/mod/distanthorizons)
+  - At least `v2.1.3`
 
 ## Compatibility info
 
 ### Compatible mods
 
 Distant Horizons: Entity Rendering should be compatible with most, if not all, mods that are compatible with Distant Horizons. 
+
+- [Create](https://modrinth.com/mod/create)
+  - Distant Horizons: Entity Rendering has a built-in resource pack that adds entity colors for Create
 
 ### Incompatibilities
 
@@ -33,8 +37,8 @@ a list of incompatibilities.
 ![NeoForge](docs/assets/badges/compact/supported/neoforge_vector.svg)
 
 See the version info in the filename for the supported Minecraft versions.  
-Made for the Fabric, Quilt, Forge, and NeoForge modloaders.
-Clientside.
+Made for the Fabric, Quilt, Forge, and NeoForge modloaders.  
+Client-side and server-side.
 
 ## FAQ
 
@@ -42,11 +46,11 @@ Clientside.
   A: No.
 
 - Q: Does this mod work in multiplayer?  
-  A: Yes, but it'll only improve performance on the server.
+  A: Yes.
 
 - Q: Does only the server need this mod or does the client need it too?  
-  A: Only the server needs this mod (but it works on the client too if you're going to host LAN or play singleplayer).
+  A: Both the server and the client need this mod.
 
 ## License
 
-This project is licensed under LGPLv3, see [LICENSE](https://github.com/Steveplays28/noisium/blob/main/LICENSE).
+This project is licensed under LGPLv3, see [LICENSE](https://github.com/steves-underwater-paradise/distanthorizonsentityrendering/blob/1.20.1/LICENSE).
