@@ -54,6 +54,10 @@ dependencies {
 processResources {
     inputs.property "version", "${project.version}-forge"
 
+    from(project(":common").sourceSets["main"].resources) {
+        include("**")
+    }
+
     filesMatching("META-INF/mods.toml") {
         expand "version": project.version,
                 "mod_id": rootProject.mod_id,

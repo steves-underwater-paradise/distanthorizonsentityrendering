@@ -32,15 +32,15 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
     // Mixin Extras
-    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${project.mixin_extras_version}")))
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${project.mixin_extras_version}"))
+
+    // Fabric API
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
 
     // Architectury API
     modRuntimeOnly("dev.architectury:architectury-fabric:${rootProject.architectury_api_version}") {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
-
-    // Fabric API
-    modRuntimeOnly "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
 
     // Mod Menu
     modRuntimeOnly "maven.modrinth:modmenu:${rootProject.mod_menu_version}"
@@ -54,6 +54,10 @@ dependencies {
 
 processResources {
     inputs.property "version", project.version
+
+    from(project(":common").sourceSets["main"].resources) {
+        include("**")
+    }
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version,

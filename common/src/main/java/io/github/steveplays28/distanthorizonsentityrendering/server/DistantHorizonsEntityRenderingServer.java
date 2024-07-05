@@ -1,12 +1,14 @@
 package io.github.steveplays28.distanthorizonsentityrendering.server;
 
+import dev.architectury.event.events.common.LifecycleEvent;
 import io.github.steveplays28.distanthorizonsentityrendering.server.entity.DHERServerEntityTracker;
 
 public class DistantHorizonsEntityRenderingServer {
-	@SuppressWarnings({"unused", "FieldCanBeLocal"})
+	@SuppressWarnings("unused")
 	private static DHERServerEntityTracker serverEntityTracker;
 
 	public static void initialize() {
-		serverEntityTracker = new DHERServerEntityTracker();
+		LifecycleEvent.SERVER_STARTING.register(instance -> serverEntityTracker = new DHERServerEntityTracker());
+		LifecycleEvent.SERVER_STOPPED.register(instance -> serverEntityTracker = null);
 	}
 }

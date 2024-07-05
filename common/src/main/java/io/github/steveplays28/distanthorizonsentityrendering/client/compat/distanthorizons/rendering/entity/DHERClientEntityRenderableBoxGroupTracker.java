@@ -94,16 +94,16 @@ public class DHERClientEntityRenderableBoxGroupTracker {
 	}
 
 	private static void startTrackingEntity(int entityId, @NotNull Identifier entityTextureIdentifier, @NotNull Vector3f entityPosition, @NotNull Vector3f entityBoundingBoxMin, @NotNull Vector3f entityBoundingBoxMax) {
-		@Nullable var averageMobTextureColor = EntityAverageColorRegistry.ENTITY_AVERAGE_COLOR_REGISTRY.get(entityTextureIdentifier);
-		if (averageMobTextureColor == null) {
-			averageMobTextureColor = Color.BLACK;
+		@Nullable var entityAverageTextureColor = EntityAverageColorRegistry.ENTITY_AVERAGE_COLOR_REGISTRY.get(entityTextureIdentifier);
+		if (entityAverageTextureColor == null) {
+			entityAverageTextureColor = Color.BLACK;
 		}
 
 		@NotNull final var renderableBoxGroup = DhApi.Delayed.customRenderObjectFactory.createForSingleBox(
 				new DhApiRenderableBox(
 						new DhApiVec3f(entityBoundingBoxMin.x(), entityBoundingBoxMin.y(), entityBoundingBoxMin.z()),
 						new DhApiVec3f(entityBoundingBoxMax.x(), entityBoundingBoxMax.y(), entityBoundingBoxMax.z()),
-						averageMobTextureColor
+						entityAverageTextureColor
 				)
 		);
 		renderableBoxGroup.setOriginBlockPos(new DhApiVec3f(entityPosition.x(), entityPosition.y(), entityPosition.z()));
