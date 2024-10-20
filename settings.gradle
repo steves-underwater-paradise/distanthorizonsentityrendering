@@ -1,3 +1,7 @@
+//file:noinspection GroovyAccessibility
+//file:noinspection GroovyAssignabilityCheck
+//file:noinspection DependencyNotationArgument
+
 pluginManagement {
     repositories {
         maven { url "https://maven.fabricmc.net/" }
@@ -7,8 +11,14 @@ pluginManagement {
     }
 }
 
-include("common")
-include("fabric")
-include("forge")
+plugins {
+    id "com.pablisco.gradle.auto.include" version "${auto_include_plugin_version}"
+    id "architectury-plugin" version "${architectury_plugin_version}" apply false
+    id "dev.architectury.loom" version "${architectury_loom_version}" apply false
+    id "com.github.johnrengelman.shadow" version "${shadow_plugin_version}" apply false
+}
 
 rootProject.name = "${mod_id}"
+
+// Gradle modules are automatically included using com.pablisco.gradle.auto.include
+// See https://github.com/pablisco/auto-include/
