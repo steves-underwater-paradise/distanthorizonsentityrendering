@@ -9,11 +9,11 @@
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/${mod_id}",
-    "sources": "https://github.com/steves-underwater-paradise/${mod_id}",
-    "issues": "https://github.com/steves-underwater-paradise/${mod_id}/issues"
+    "sources": "${git_repository_host}/${git_organization}/${mod_id}",
+    "issues": "${git_repository_host}/${git_organization}/${mod_id}/issues"
   },
   "license": "${mod_license}",
-  "icon": "assets/${mod_namespace}/icon.png",
+  "icon": "assets/${mod_id}/icon.png",
   "custom": {
     "modmenu": {
       "links": {
@@ -39,7 +39,7 @@
     ]
   },
   "mixins": [
-    "${mod_namespace}-common.mixins.json"
+    "${mod_id}-common.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
