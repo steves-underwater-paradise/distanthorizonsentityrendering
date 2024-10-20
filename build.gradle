@@ -25,6 +25,9 @@ subprojects {
                 includeGroup "maven.modrinth"
             }
         }
+        flatDir {
+            dir rootProject.file("libraries/")
+        }
     }
 
     dependencies {
