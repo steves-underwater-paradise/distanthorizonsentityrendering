@@ -32,10 +32,10 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "io.github.steveplays28.distanthorizonsentityrendering.fabric.client.DistantHorizonsEntityRenderingClientFabric"
+      "io.github.steveplays28.lodentityrendering.fabric.client.LODEntityRenderingClientFabric"
     ],
     "main": [
-      "io.github.steveplays28.distanthorizonsentityrendering.fabric.DistantHorizonsEntityRenderingFabric"
+      "io.github.steveplays28.lodentityrendering.fabric.LODEntityRenderingFabric"
     ]
   },
   "mixins": [

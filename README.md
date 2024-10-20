@@ -22,14 +22,14 @@ LOD Entity Rendering should be compatible with most, if not all, mods that are c
 
 ### Incompatibilities
 
-See the [issue tracker](https://github.com/steves-underwater-paradise/distanthorizonsentityrendering/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Acompatibility) for
+See the [issue tracker](https://github.com/steves-underwater-paradise/lodentityrendering/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Acompatibility) for
 a list of incompatibilities.
 
 ## Download
 
-[![GitHub](https://github.com/intergrav/devins-badges/raw/2dc967fc44dc73850eee42c133a55c8ffc5e30cb/assets/cozy/available/github_vector.svg)](https://github.com/steves-underwater-paradise/distanthorizonsentityrendering)
-[![Modrinth](https://github.com/intergrav/devins-badges/raw/2dc967fc44dc73850eee42c133a55c8ffc5e30cb/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/mod/distanthorizonsentityrendering)
-[![CurseForge](https://github.com/intergrav/devins-badges/raw/2dc967fc44dc73850eee42c133a55c8ffc5e30cb/assets/cozy/available/curseforge_vector.svg)](https://www.curseforge.com/minecraft/mc-mods/distanthorizonsentityrendering)
+[![GitHub](https://github.com/intergrav/devins-badges/raw/2dc967fc44dc73850eee42c133a55c8ffc5e30cb/assets/cozy/available/github_vector.svg)](https://github.com/steves-underwater-paradise/lodentityrendering)
+[![Modrinth](https://github.com/intergrav/devins-badges/raw/2dc967fc44dc73850eee42c133a55c8ffc5e30cb/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/mod/lodentityrendering)
+[![CurseForge](https://github.com/intergrav/devins-badges/raw/2dc967fc44dc73850eee42c133a55c8ffc5e30cb/assets/cozy/available/curseforge_vector.svg)](https://www.curseforge.com/minecraft/mc-mods/lodentityrendering)
 
 ![Fabric](https://github.com/intergrav/devins-badges/raw/2dc967fc44dc73850eee42c133a55c8ffc5e30cb/assets/compact/supported/fabric_vector.svg)
 ![Quilt](https://github.com/intergrav/devins-badges/raw/2dc967fc44dc73850eee42c133a55c8ffc5e30cb/assets/compact/supported/quilt_vector.svg)
@@ -53,4 +53,4 @@ Client-side and server-side.
 
 ## License
 
-This project is licensed under LGPLv3, see [LICENSE](https://github.com/steves-underwater-paradise/distanthorizonsentityrendering/blob/1.20.1/LICENSE).
+This project is licensed under LGPLv3, see [LICENSE](https://github.com/steves-underwater-paradise/lodentityrendering/blob/1.20.1/LICENSE).
