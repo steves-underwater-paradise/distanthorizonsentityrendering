@@ -4,7 +4,8 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-public interface DHERPacket {
+public interface LODEntityRenderingPacket {
+	@SuppressWarnings("unused")
 	@NotNull
 	static Identifier getId() {
 		return new Identifier("example", "packet");

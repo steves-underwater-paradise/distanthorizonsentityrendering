@@ -1,14 +1,14 @@
 package io.github.steveplays28.lodentityrendering.networking.packet.s2c.world.entity;
 
 import io.github.steveplays28.lodentityrendering.LODEntityRendering;
-import io.github.steveplays28.lodentityrendering.networking.packet.DHERPacket;
+import io.github.steveplays28.lodentityrendering.networking.packet.LODEntityRenderingPacket;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
-public class LODEntityRenderingS2CEntityTickPacket implements DHERPacket {
+public class LODEntityRenderingS2CEntityTickPacket implements LODEntityRenderingPacket {
 	private static final @NotNull Identifier id = new Identifier(LODEntityRendering.MOD_ID, "entity_tick_packet");
 
 	private final int entityId;
