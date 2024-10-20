@@ -1,6 +1,6 @@
-![Distant Horizons: Entity Rendering icon](docs/assets/icon/icon_128x128.png)
+![LOD Entity Rendering icon](docs/assets/icon/icon_128x128.png)
 
-# Distant Horizons: Entity Rendering
+# LOD Entity Rendering
 
 Minecraft mod that renders entities in Distant Horizons' LODs.
 
@@ -15,10 +15,10 @@ Minecraft mod that renders entities in Distant Horizons' LODs.
 
 ### Compatible mods
 
-Distant Horizons: Entity Rendering should be compatible with most, if not all, mods that are compatible with Distant Horizons. 
+LOD Entity Rendering should be compatible with most, if not all, mods that are compatible with Distant Horizons. 
 
 - [Create](https://modrinth.com/mod/create)
-  - Distant Horizons: Entity Rendering has a built-in resource pack that adds entity colors for Create
+  - LOD Entity Rendering has a built-in resource pack that adds entity colors for Create
 
 ### Incompatibilities
 

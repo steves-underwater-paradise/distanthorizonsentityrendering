@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 public class DHERServerEntityTracker {
-	private static final @NotNull Identifier FALLBACK_ENTITY_TEXTURE_ID = new Identifier(DistantHorizonsEntityRendering.MOD_NAMESPACE, "fallback_entity_texture_id");
+	private static final @NotNull Identifier FALLBACK_ENTITY_TEXTURE_ID = new Identifier(DistantHorizonsEntityRendering.MOD_ID, "fallback_entity_texture_id");
 
 	static {
 		DHERServerWorldEntityEvent.ENTITY_LOAD.register(DHERServerEntityTracker::onEntityLoad);

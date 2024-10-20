@@ -22,7 +22,7 @@ import static io.github.steveplays28.distanthorizonsentityrendering.client.Dista
 @OnlyIn(Dist.CLIENT)
 public class DHERResourcePackEventHandler {
 	private static final @NotNull String RESOURCE_PACKS_FOLDER = "resourcepacks";
-	private static final @NotNull Identifier BUILT_IN_RESOURCE_PACK_ID = new Identifier(MOD_NAMESPACE, BUILT_IN_RESOURCE_PACK_NAMESPACE);
+	private static final @NotNull Identifier BUILT_IN_RESOURCE_PACK_ID = new Identifier(DistantHorizonsEntityRendering.MOD_ID, BUILT_IN_RESOURCE_PACK_NAMESPACE);
 
 	@SubscribeEvent
 	public static void onAddPackFinders(@NotNull AddPackFindersEvent event) {
@@ -49,7 +49,7 @@ public class DHERResourcePackEventHandler {
 
 		// TODO: Enable the built-in default resource pack by default
 		MinecraftClient.getInstance().getResourcePackManager().addPackFinder(profileAdder -> profileAdder.accept(ResourcePackProfile.of(
-				MOD_NAMESPACE, Text.literal(BUILT_IN_RESOURCE_PACK_ID.toString()), false,
+				DistantHorizonsEntityRendering.MOD_ID, Text.literal(BUILT_IN_RESOURCE_PACK_ID.toString()), false,
 				resourcePackFactory, resourcePackMetadata, ResourceType.CLIENT_RESOURCES, ResourcePackProfile.InsertionPosition.BOTTOM,
 				false, ResourcePackSource.BUILTIN
 		)));

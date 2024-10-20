@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class DHERS2CEntityUnloadPacket implements DHERPacket {
-	private static final @NotNull Identifier id = new Identifier(DistantHorizonsEntityRendering.MOD_NAMESPACE, "entity_unload_packet");
+	private static final @NotNull Identifier id = new Identifier(DistantHorizonsEntityRendering.MOD_ID, "entity_unload_packet");
 
 	private final int entityId;
 

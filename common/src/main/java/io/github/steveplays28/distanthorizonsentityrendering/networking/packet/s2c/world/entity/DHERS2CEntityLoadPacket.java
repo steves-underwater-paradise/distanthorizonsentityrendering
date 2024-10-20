@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 public class DHERS2CEntityLoadPacket implements DHERPacket {
-	private static final @NotNull Identifier id = new Identifier(DistantHorizonsEntityRendering.MOD_NAMESPACE, "entity_load_packet");
+	private static final @NotNull Identifier id = new Identifier(DistantHorizonsEntityRendering.MOD_ID, "entity_load_packet");
 
 	private final int entityId;
 	private final @NotNull Identifier entityTextureId;
