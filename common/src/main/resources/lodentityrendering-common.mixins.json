@@ -7,10 +7,6 @@
     "server.world.ServerWorldMixin",
     "server.world.ServerWorldMixin$ServerEntityHandlerMixin"
   ],
-  "client": [
-    "client.world.ClientWorldMixin",
-    "client.world.ClientWorldMixin$ClientWorldEntityHandlerMixin"
-  ],
   "injectors": {
     "defaultRequire": 1
   }
