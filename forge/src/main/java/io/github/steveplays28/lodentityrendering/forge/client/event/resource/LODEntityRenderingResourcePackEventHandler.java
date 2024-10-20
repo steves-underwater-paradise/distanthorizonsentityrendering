@@ -1,6 +1,7 @@
 package io.github.steveplays28.lodentityrendering.forge.client.event.resource;
 
 import io.github.steveplays28.lodentityrendering.LODEntityRendering;
+import io.github.steveplays28.lodentityrendering.client.LODEntityRenderingClient;
 import io.github.steveplays28.lodentityrendering.forge.client.util.resource.ResourcePackUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.ResourcePackProfile;
@@ -17,12 +18,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static io.github.steveplays28.lodentityrendering.LODEntityRendering.*;
-import static io.github.steveplays28.lodentityrendering.client.LODEntityRenderingClient.BUILT_IN_RESOURCE_PACK_NAMESPACE;
 
 @OnlyIn(Dist.CLIENT)
 public class LODEntityRenderingResourcePackEventHandler {
 	private static final @NotNull String RESOURCE_PACKS_FOLDER = "resourcepacks";
-	private static final @NotNull Identifier BUILT_IN_RESOURCE_PACK_ID = new Identifier(LODEntityRendering.MOD_ID, BUILT_IN_RESOURCE_PACK_NAMESPACE);
+	private static final @NotNull Identifier BUILT_IN_RESOURCE_PACK_ID = new Identifier(LODEntityRendering.MOD_ID,
+			LODEntityRenderingClient.BUILT_IN_RESOURCE_PACK_ID
+	);
 
 	@SubscribeEvent
 	public static void onAddPackFinders(@NotNull AddPackFindersEvent event) {
@@ -35,10 +37,10 @@ public class LODEntityRenderingResourcePackEventHandler {
 				id, true,
 				ResourcePackUtil.getResourcePackInformation(BUILT_IN_RESOURCE_PACK_ID).getFile().findResource(
 						RESOURCE_PACKS_FOLDER,
-						BUILT_IN_RESOURCE_PACK_NAMESPACE
+						LODEntityRenderingClient.BUILT_IN_RESOURCE_PACK_ID
 				)
 		);
-		@Nullable final var resourcePackMetadata = ResourcePackProfile.loadMetadata(BUILT_IN_RESOURCE_PACK_NAMESPACE, resourcePackFactory);
+		@Nullable final var resourcePackMetadata = ResourcePackProfile.loadMetadata(LODEntityRenderingClient.BUILT_IN_RESOURCE_PACK_ID, resourcePackFactory);
 		if (resourcePackMetadata == null) {
 			LODEntityRendering.LOGGER.error(
 					"Error occurred while trying to register {}'s default built-in resource pack ({}): resourcePackMetadata == null\n{}",

@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 
 import static io.github.steveplays28.lodentityrendering.LODEntityRendering.MOD_ID;
 import static io.github.steveplays28.lodentityrendering.LODEntityRendering.MOD_NAME;
-import static io.github.steveplays28.lodentityrendering.client.LODEntityRenderingClient.BUILT_IN_RESOURCE_PACK_NAMESPACE;
+import static io.github.steveplays28.lodentityrendering.client.LODEntityRenderingClient.BUILT_IN_RESOURCE_PACK_ID;
 
 public class LODEntityRenderingClientFabric implements ClientModInitializer {
 	@Override
@@ -24,7 +24,7 @@ public class LODEntityRenderingClientFabric implements ClientModInitializer {
 
 		// Register a built-in default resource pack
 		ResourceManagerHelper.registerBuiltinResourcePack(
-				new Identifier(MOD_ID, BUILT_IN_RESOURCE_PACK_NAMESPACE), modContainer.get(), ResourcePackActivationType.DEFAULT_ENABLED);
+				new Identifier(MOD_ID, BUILT_IN_RESOURCE_PACK_ID), modContainer.get(), ResourcePackActivationType.DEFAULT_ENABLED);
 		LODEntityRenderingClient.initialize();
 	}
 }
